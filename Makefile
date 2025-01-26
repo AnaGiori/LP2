@@ -1,38 +1,20 @@
-# Nome do compilador
-JAVAC = javac
+SRC_DIR = src/main/java
+BIN_DIR = bin
 
-# Diretório de saída para os arquivos compilados
-OUT_DIR = bin
+compile:
+	mkdir -p $(BIN_DIR)
+	javac -d $(BIN_DIR) $(SRC_DIR)/conta/Conta.java \
+		$(SRC_DIR)/conta/ContaCorrente.java \
+		$(SRC_DIR)/conta/ContaPoupanca.java \
+		$(SRC_DIR)/conta/ContaSalario.java \
+		$(SRC_DIR)/agencia/Agencia.java \
+		$(SRC_DIR)/persistencia/GerenciadorPersistencia.java \
+		$(SRC_DIR)/excecoes/*.java \
+		$(SRC_DIR)/cliente/Cliente.java \
+		$(SRC_DIR)/Main.java
 
-# Diretório de origem dos arquivos .java
-SRC_DIR = .
-
-# Nome do arquivo principal (classe com o método main)
-MAIN_CLASS = Main
-
-# Lista de arquivos-fonte
-SOURCES = $(SRC_DIR)/Cliente.java $(SRC_DIR)/Conta.java $(SRC_DIR)/Main.java
-
-# Lista de arquivos compilados
-CLASSES = $(OUT_DIR)/Cliente.class $(OUT_DIR)/Conta.class $(OUT_DIR)/Main.class
-
-# Comando padrão (compila e executa)
-.PHONY: all
-all: compile run
-
-# Compilação
-compile: $(CLASSES)
-
-$(CLASSES): $(SOURCES)
-	mkdir -p $(OUT_DIR)
-	$(JAVAC) -d $(OUT_DIR) $(SOURCES)
-
-# Execução
 run:
-	java -cp $(OUT_DIR) $(MAIN_CLASS)
+	java -cp $(BIN_DIR) Main
 
-# Limpeza (remove arquivos compilados)
-.PHONY: clean
 clean:
-	rm -rf $(OUT_DIR)
-
+	rm -rf $(BIN_DIR)
